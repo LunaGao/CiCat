@@ -17,6 +17,10 @@ public class ProjectMapper implements RowMapper<Project> {
         project.setName(resultSet.getString("name"));
         project.setIdProject(resultSet.getInt("idProject"));
         project.setPlatform(resultSet.getString("platform"));
+        project.setGit_url(resultSet.getString("git_url"));
+        project.setGit_branch(resultSet.getString("git_branch"));
+        project.setGit_username(resultSet.getString("git_username"));
+        project.setGit_password(resultSet.getString("git_password"));
         return project;
     }
 }

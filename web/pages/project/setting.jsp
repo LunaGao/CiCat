@@ -1,4 +1,6 @@
-<%@ page import="com.cicat.entity.Project" %><%--
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="com.cicat.entity.Project" %>
+<%--
   Created by IntelliJ IDEA.
   User: lunagao
   Date: 16/7/29
@@ -6,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% Project p = (Project)request.getAttribute("project"); %>
 <html>
 <head>
     <title>Ci Cat</title>
@@ -26,9 +29,8 @@
         </div>
     </nav>
     <div style="margin-top: 20px">
-        <a class="waves-effect waves-light btn">Back</a>
+        <a class="waves-effect waves-light btn" href="/<%=p.getName()%>/<%=p.getPlatform()%>">Back</a>
     </div>
-    <% Project p = (Project)request.getAttribute("project"); %>
     <h2><%=p.getName()%></h2>
     <div class="center-block" style="width: 96%;">
         <a class="waves-effect waves-light btn">Build</a>
@@ -42,19 +44,59 @@
 
     <ul class="collapsible popout" data-collapsible="accordion">
         <li>
-            <div class="collapsible-header">Source Code</div>
+            <div class="collapsible-header">Project Setting</div>
             <div class="collapsible-body">
-
-                <p>Git</p>
-
+                <p>Project</p>
+                <form:form action="updateprojectsetting" method="post" modelAttribute="project" class="center-block" style="width: 90%;">
+                    <div class="input-field">
+                        <form:input name="name" id="name" type="text" path="name" />
+                        <label for="name">Project Name</label>
+                    </div>
+                    <label>Platform</label>
+                    <form:select path="platform" class="browser-default">
+                        <form:option value="iOS">iOS</form:option>
+                        <form:option value="Android">Android</form:option>
+                    </form:select>
+                    <br>
+                    <br>
+                    <button class="waves-effect waves-light btn" type="submit">save</button>
+                </form:form>
             </div>
         </li>
         <li>
-            <div class="collapsible-header">Second</div>
+            <div class="collapsible-header">Source Code</div>
+            <div class="collapsible-body">
+                <p>Git</p>
+                <form:form modelAttribute="project" action="updatesourcecode" method="post" class="center-block" style="width: 90%; margin-bottom: 40px;">
+
+                    <div class="input-field">
+                        <form:input placeholder="eg. https://github.com/LunaGao/CiCat.git" id="git_url" name="git_url" type="text" class="validate" path="git_url" />
+                        <label for="git_url">Git Url</label>
+                    </div>
+                    <div class="input-field">
+                        <form:input placeholder="eg. master" id="git_branch" name="git_branch" type="text" class="validate" path="git_branch" />
+                        <label for="git_branch">Git Branch</label>
+                    </div>
+                    <div class="input-field">
+                        <form:input placeholder="eg. luna" id="git_username" name="git_username" type="text" class="validate" path="git_username"/>
+                        <label for="git_username">Login Git User Name</label>
+                    </div>
+                    <div class="input-field">
+                        <form:input placeholder="eg. *****" id="git_password" name="git_password" type="password" class="validate" path="git_password" />
+                        <label for="git_password">Login Git User Password</label>
+                    </div>
+                    <button class="waves-effect waves-light btn" type="submit">Save</button>
+                    <a class="waves-effect waves-light btn">Clone</a>
+
+                </form:form>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">Build Setting</div>
             <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
         </li>
         <li>
-            <div class="collapsible-header">Third</div>
+            <div class="collapsible-header">Execution Time</div>
             <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
         </li>
     </ul>

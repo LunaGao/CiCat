@@ -46,4 +46,25 @@ public class ProjectServiceImpl implements IProjectService {
             return null;
         }
     }
+
+    @Override
+    public void updateProjectSourceCode(Project project) {
+        String SQL = "UPDATE Project SET git_url = ? , git_branch = ? , git_username = ? , git_password = ? WHERE idProject = ?";
+        jdbcTemplate.update(SQL, new Object[]{
+                project.getGit_url(),
+                project.getGit_branch(),
+                project.getGit_username(),
+                project.getGit_password(),
+                project.getIdProject()});
+    }
+
+    @Override
+    public void updateProjectSetting(Project project) {
+        String SQL = "UPDATE Project SET name = ? , platform = ? WHERE idProject = ?";
+        jdbcTemplate.update(SQL, new Object[]{
+                project.getName(),
+                project.getPlatform(),
+                project.getIdProject()});
+    }
+
 }

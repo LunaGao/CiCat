@@ -28,7 +28,7 @@
     <div class="center-block" style="width: 90%;">
         <canvas id="canvas"></canvas>
     </div>
-    <div class="center-block" style="width: 96%;">
+    <div class="center-block" style="width: 90%;">
         <div class="card blue-grey darken-1">
             <div class="card-content white-text">
                 <img src="../resources/img/icon_android.png" alt="android" style="height: 20px;width: 20px;"/>

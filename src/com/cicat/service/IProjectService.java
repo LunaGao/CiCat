@@ -11,5 +11,7 @@ public interface IProjectService {
     void create(String name, String platform);
     List<Project> getProjects();
     Project getProject(String name, String platform);
+    void updateProjectSourceCode(Project project);
+    void updateProjectSetting(Project project);
 
 }

@@ -10,7 +10,7 @@
 <head>
     <title>Ci Cat</title>
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../res/materialize/css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../resources/materialize/css/materialize.min.css" media="screen,projection"/>
 </head>
 <body>
 <div class="container">
@@ -19,50 +19,24 @@
         <div class="nav-wrapper">
             <a class="brand-logo" style="padding-left: 20px;">Ci Cat</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a>Dashboard</a></li>
-                <li class="active"><a>Projects</a></li>
-                <li><a>Setting</a></li>
+                <li><a href="dashboard">Dashboard</a></li>
+                <li><a href="projects">Projects</a></li>
+                <li class="active"><a>Setting</a></li>
             </ul>
         </div>
     </nav>
-    <div class="center-block" style="width: 96%;">
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-                <img src="../res/img/icon_android.png" alt="android" style="height: 20px;width: 20px;"/>
-                <span class="card-title">Hooplook-Android</span>
-                <p>
-                    Success (Build 10) 2016/7/20 20:36:33
-                </p>
-                <p>
-                    Failure (Build 9) 2016/7/20 20:36:33
-                </p>
-            </div>
-            <div class="card-action">
-                <a href="#">Build</a>
-                <a href="#">More</a>
-            </div>
+    <h4>Global Setting</h4>
+    <br />
+    <div class="center-block" style="width: 90%;">
+        <div class="input-field col s6">
+            <input placeholder="eg. /usr/local/bin   (if your Git already set in PATH, you can not set this)" id="first_name" type="text" class="validate">
+            <label for="first_name">Git path location</label>
         </div>
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-                <img src="../res/img/icon_ios.png" alt="iOS" style="height: 20px;width: 20px;"/>
-                <span class="card-title">Hooplook-iOS</span>
-                <p>
-                    Success (Build 10) 2016/7/20 20:36:33
-                </p>
-                <p>
-                    Failure (Build 9) 2016/7/20 20:36:33
-                </p>
-            </div>
-            <div class="card-action">
-                <a href="#">Build</a>
-                <a href="#">More</a>
-            </div>
-        </div>
-    </div>
 
-    <div div class="row">
-        <div class="col s1">
-            <a class="waves-effect waves-light btn">Create</a>
+        <div div class="row">
+            <div class="col s1">
+                <a class="waves-effect waves-light btn">Save</a>
+            </div>
         </div>
     </div>
 </div>
@@ -90,6 +64,6 @@
     </div>
 </footer>
 </body>
-<script src="../res/materialize/js/jquery-2.1.4.min.js"></script>
-<script src="../res/materialize/js/materialize.min.js"></script>
+<script src="../resources/materialize/js/jquery-2.1.4.min.js"></script>
+<script src="../resources/materialize/js/materialize.min.js"></script>
 </html>

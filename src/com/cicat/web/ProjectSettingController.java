@@ -51,4 +51,29 @@ public class ProjectSettingController {
         model.addAttribute("project", project);
         return "/project/setting";
     }
+
+    @RequestMapping(value = "/{p_name}/{p_platform}/updateprojectsetting", method = RequestMethod.POST)
+    public String updateProjectSetting(ModelMap model, @PathVariable String p_name, @PathVariable String p_platform,
+                                       @RequestParam String name, @RequestParam String platform) {
+        Project project = service.getProject(p_name, p_platform);
+        project.setName(name);
+        project.setPlatform(platform);
+        service.updateProjectSetting(project);
+        model.addAttribute("project", project);
+        return "redirect:/" + name + "/" + platform + "/setting";
+    }
+
+    @RequestMapping(value = "/{name}/{platform}/updatesourcecode", method = RequestMethod.POST)
+    public String updateSourceCode(ModelMap model, @PathVariable String name, @PathVariable String platform,
+                                @RequestParam String git_url, @RequestParam String git_branch,
+                                @RequestParam String git_username, @RequestParam String git_password) {
+        Project project = service.getProject(name, platform);
+        project.setGit_url(git_url);
+        project.setGit_branch(git_branch);
+        project.setGit_username(git_username);
+        project.setGit_password(git_password);
+        service.updateProjectSourceCode(project);
+        model.addAttribute("project", project);
+        return "/project/setting";
+    }
 }
