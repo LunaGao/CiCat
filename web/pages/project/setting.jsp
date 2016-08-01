@@ -22,9 +22,9 @@
         <div class="nav-wrapper">
             <a class="brand-logo" style="padding-left: 20px;">Ci Cat</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a>Dashboard</a></li>
-                <li class="active"><a>Projects</a></li>
-                <li><a>Setting</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li class="active"><a href="/projects">Projects</a></li>
+                <li><a href="/setting">Setting</a></li>
             </ul>
         </div>
     </nav>
@@ -86,7 +86,7 @@
                         <label for="git_password">Login Git User Password</label>
                     </div>
                     <button class="waves-effect waves-light btn" type="submit">Save</button>
-                    <a class="waves-effect waves-light btn">Clone</a>
+                    <a class="waves-effect waves-light btn" href="/<%=p.getName()%>/<%=p.getPlatform()%>/cloneSourceCode">Clone</a>
 
                 </form:form>
             </div>

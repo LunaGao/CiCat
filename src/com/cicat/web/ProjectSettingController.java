@@ -1,6 +1,7 @@
 package com.cicat.web;
 
 import com.cicat.entity.Project;
+import com.cicat.git.GitHelper;
 import com.cicat.service.IProjectService;
 import com.cicat.utils.CommonString;
 import org.springframework.stereotype.Controller;
@@ -74,6 +75,14 @@ public class ProjectSettingController {
         project.setGit_password(git_password);
         service.updateProjectSourceCode(project);
         model.addAttribute("project", project);
+        return "/project/setting";
+    }
+
+    @RequestMapping(value = "/{name}/{platform}/cloneSourceCode", method = RequestMethod.GET)
+    public String cloneSourceCode(ModelMap model, @PathVariable String name, @PathVariable String platform) {
+        Project project = service.getProject(name, platform);
+        GitHelper.cloneProject(project);
+        model.addAttribute(project);
         return "/project/setting";
     }
 }
