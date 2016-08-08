@@ -1,8 +1,11 @@
 package com.cicat.web;
 
 import com.cicat.entity.Project;
+import com.cicat.entity.Setting;
 import com.cicat.git.GitHelper;
 import com.cicat.service.IProjectService;
+import com.cicat.service.ISettingService;
+import com.cicat.service.impl.SettingServiceImpl;
 import com.cicat.utils.CommonString;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +22,8 @@ import javax.annotation.Resource;
 @Controller
 public class ProjectSettingController {
 
+    @Resource
+    ISettingService settingService;
     @Resource
     IProjectService service;
 
@@ -81,7 +86,10 @@ public class ProjectSettingController {
     @RequestMapping(value = "/{name}/{platform}/cloneSourceCode", method = RequestMethod.GET)
     public String cloneSourceCode(ModelMap model, @PathVariable String name, @PathVariable String platform) {
         Project project = service.getProject(name, platform);
-        GitHelper.cloneProject(project);
+        settingService = new SettingServiceImpl();
+        Setting setting = settingService.getSetting(CommonString.KEY_PORJECT_SAVE_LOCATION);
+        GitHelper gitHelper = new GitHelper();
+        gitHelper.cloneProject(project, setting);
         model.addAttribute(project);
         return "/project/setting";
     }

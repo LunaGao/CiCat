@@ -1,3 +1,4 @@
+<%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: lunagao
@@ -29,20 +30,22 @@
     <br />
     <div class="center-block" style="width: 90%;">
 
-        <div class="input-field col s6">
-            <input placeholder="eg. /user/{username}/CiCat/project/   (you need input the Absolute path)" id="project_save_location" type="text" class="validate">
-            <label for="project_save_location">Project location</label>
-        </div>
-        <div class="input-field col s6">
-            <input placeholder="eg. /usr/local/bin   (if your Git already set in PATH, you don't meed to set this)" id="git_path" type="text" class="validate">
-            <label for="git_path">Git path location</label>
-        </div>
-
-        <div div class="row">
-            <div class="col s1">
-                <a class="waves-effect waves-light btn">Save</a>
+        <form action="/setting/save" method="post">
+            <div class="input-field col s6">
+                <input placeholder="eg. /user/username/CiCat/project/   (you need input the Absolute path)" id="project_save_location" type="text" class="validate" name="project_save_location" value="<%=request.getAttribute("project_save_location")==null?"":(String)request.getAttribute("project_save_location")%>"/>
+                <label for="project_save_location">Project location</label>
             </div>
-        </div>
+            <div class="input-field col s6">
+                <input placeholder="eg. /usr/local/bin   (if your Git already set in PATH, you don't meed to set this)" id="git_path" type="text" class="validate" name="git_path" value="<%=request.getAttribute("git_path")==null?"":(String)request.getAttribute("git_path")%>"/>
+                <label for="git_path">Git path location</label>
+            </div>
+
+            <div div class="row">
+                <div class="col s1">
+                    <button class="waves-effect waves-light btn" type="submit">Save</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
