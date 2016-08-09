@@ -39,14 +39,20 @@
 
         <% for (Project project : ((List<Project>) request.getAttribute("projects"))) { %>
 
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
+        <div class="card">
+            <div class="card-content black-text">
+                <span class="card-title"><a href="/<%=project.getName()%>/<%=project.getPlatform()%>"><%=project.getName()%></a></span>
+                <br><br>
                 <% if (project.getPlatform().equals("iOS")) { %>
-                <img src="../resources/img/icon_ios.png" alt="ios" style="height: 20px;width: 20px;"/>
+                <div class="chip">
+                    <img src="../resources/img/icon_ios.png" alt="iOS">iOS
+                </div>
                 <% } else { %>
-                <img src="../resources/img/icon_android.png" alt="android" style="height: 20px;width: 20px;"/>
+                <div class="chip">
+                    <img src="../resources/img/icon_android.png" alt="Android">Android
+                </div>
                 <% } %>
-                <span class="card-title"><%=project.getName()%></span>
+                <br><br>
                 <p>
                     Success (Build 10) 2016/7/20 20:36:33
                 </p>
@@ -56,7 +62,6 @@
             </div>
             <div class="card-action">
                 <a href="#">Build</a>
-                <a href="/<%=project.getName()%>/<%=project.getPlatform()%>">More</a>
             </div>
         </div>
 

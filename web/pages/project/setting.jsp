@@ -87,7 +87,6 @@
                     </div>
                     <button class="waves-effect waves-light btn" type="submit">Save</button>
                     <a class="waves-effect waves-light btn" href="/<%=p.getName()%>/<%=p.getPlatform()%>/cloneSourceCode">Clone</a>
-
                 </form:form>
             </div>
         </li>
