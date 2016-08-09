@@ -86,11 +86,16 @@ public class ProjectSettingController {
     @RequestMapping(value = "/{name}/{platform}/cloneSourceCode", method = RequestMethod.GET)
     public String cloneSourceCode(ModelMap model, @PathVariable String name, @PathVariable String platform) {
         Project project = service.getProject(name, platform);
-        settingService = new SettingServiceImpl();
         Setting setting = settingService.getSetting(CommonString.KEY_PORJECT_SAVE_LOCATION);
         GitHelper gitHelper = new GitHelper();
-        gitHelper.cloneProject(project, setting);
-        model.addAttribute(project);
-        return "/project/setting";
+        try {
+            gitHelper.cloneProject(project, setting);
+            model.addAttribute(project);
+            return "redirect:setting";
+        } catch (Exception ex) {
+            model.addAttribute(project);
+            model.addAttribute("error", ex.getMessage());
+            return "/project/setting";
+        }
     }
 }

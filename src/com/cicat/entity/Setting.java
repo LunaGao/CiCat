@@ -6,24 +6,8 @@ package com.cicat.entity;
 public class Setting {
 
     private int idSetting;
-    private String key;
-    private String value;
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
+    private String settingKey;
+    private String settingValue;
 
     public int getIdSetting() {
         return idSetting;
@@ -31,5 +15,21 @@ public class Setting {
 
     public void setIdSetting(int idSetting) {
         this.idSetting = idSetting;
+    }
+
+    public String getSettingKey() {
+        return settingKey;
+    }
+
+    public void setSettingKey(String settingKey) {
+        this.settingKey = settingKey;
+    }
+
+    public String getSettingValue() {
+        return settingValue;
+    }
+
+    public void setSettingValue(String settingValue) {
+        this.settingValue = settingValue;
     }
 }

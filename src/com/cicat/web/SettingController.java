@@ -26,7 +26,7 @@ public class SettingController {
     public String showSetting(ModelMap model) {
         List<Setting> settings = service.getSettings();
         for (Setting setting : settings) {
-            model.addAttribute(setting.getKey(), setting.getValue());
+            model.addAttribute(setting.getSettingKey(), setting.getSettingValue());
         }
         return "setting";
     }
@@ -41,12 +41,12 @@ public class SettingController {
         } else {
             ArrayList<Setting> settings = new ArrayList<>();
             Setting setting_project_save_location = new Setting();
-            setting_project_save_location.setKey("project_save_location");
-            setting_project_save_location.setValue(project_save_location);
+            setting_project_save_location.setSettingKey("project_save_location");
+            setting_project_save_location.setSettingValue(project_save_location);
             settings.add(setting_project_save_location);
             Setting setting_git_path = new Setting();
-            setting_git_path.setKey("git_path");
-            setting_git_path.setValue(git_path);
+            setting_git_path.setSettingKey("git_path");
+            setting_git_path.setSettingValue(git_path);
             settings.add(setting_git_path);
             service.setSettings(settings);
             return "redirect:/setting";

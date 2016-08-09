@@ -64,4 +64,9 @@
 </body>
 <script src="../../resources/materialize/js/jquery-2.1.4.min.js"></script>
 <script src="../../resources/materialize/js/materialize.min.js"></script>
+<script>
+    <% if ( !"".equals((String)request.getAttribute("error")) ) { %>
+    Materialize.toast('${error}', 3000, 'rounded');
+    <% } %>
+</script>
 </html>

@@ -1,8 +1,10 @@
 package com.cicat.service.impl;
 
+import com.cicat.entity.Project;
 import com.cicat.entity.Setting;
 import com.cicat.entity.mapper.SettingMapper;
 import com.cicat.service.ISettingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class SettingServiceImpl implements ISettingService {
         List<Setting> settings = getSettings();
         for (Setting setting : settings) {
             for (int i = list.size() - 1 ; i >= 0; i --) {
-                if (setting.getKey().equals(list.get(i).getKey())) {
+                if (setting.getSettingKey().equals(list.get(i).getSettingKey())) {
                     updateSetting(list.get(i));
                     list.remove(i);
                     break;
@@ -46,7 +48,7 @@ public class SettingServiceImpl implements ISettingService {
 
     @Override
     public Setting getSetting(String key) {
-        String SQL = "SELECT * FROM Setting WHERE settingKey = ?";
+        String SQL = "SELECT idSetting, settingKey, settingValue FROM Setting WHERE settingKey = ? ";
 
         List<Setting> settings  = jdbcTemplate.query(SQL, new Object[]{key},
                 new BeanPropertyRowMapper<>(Setting.class));
@@ -60,13 +62,13 @@ public class SettingServiceImpl implements ISettingService {
     private void updateSetting(Setting setting) {
         String SQL = "UPDATE Setting SET settingValue = ? WHERE settingKey = ?";
         jdbcTemplate.update(SQL, new Object[]{
-                setting.getValue(),
-                setting.getKey()
+                setting.getSettingValue(),
+                setting.getSettingKey()
                 });
     }
 
     private void createSetting(Setting setting) {
         String SQL = "INSERT INTO Setting (settingKey, settingValue) VALUES ( ? , ? )";
-        jdbcTemplate.update( SQL, setting.getKey(), setting.getValue());
+        jdbcTemplate.update( SQL, setting.getSettingKey(), setting.getSettingValue());
     }
 }
