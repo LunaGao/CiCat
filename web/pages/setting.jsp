@@ -36,7 +36,7 @@
                 <label for="project_save_location">Project location</label>
             </div>
             <div class="input-field col s6">
-                <input placeholder="eg. /usr/local/bin   (if your Git already set in PATH, you don't meed to set this)" id="git_path" type="text" class="validate" name="git_path" value="<%=request.getAttribute("git_path")==null?"":(String)request.getAttribute("git_path")%>"/>
+                <input placeholder="eg. /usr/local/bin , /usr/bin/git  (*)" id="git_path" type="text" class="validate" name="git_path" value="<%=request.getAttribute("git_path")==null?"":(String)request.getAttribute("git_path")%>"/>
                 <label for="git_path">Git path location</label>
             </div>
 

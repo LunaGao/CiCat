@@ -22,8 +22,8 @@ public class GitHelper {
         this.service = service;
     }
 
-    public void cloneProject(Project project, Setting setting) throws Exception {
-        String project_save_location = setting.getSettingValue();
+    public void cloneProject(Project project, Setting projectLocationSetting, Setting gitLocalPathSettign) throws Exception {
+        String project_save_location = projectLocationSetting.getSettingValue();
         File rootDir = File.listRoots()[0];
         String[] path = project_save_location.split(File.separator);
         List<String> paths = new ArrayList<>();
@@ -42,7 +42,9 @@ public class GitHelper {
                 throw new Exception("\"Project Location\" path can not be create, please check it again.");
             }
         }
-        String commandStr = "ifconfig";//"cd " + folder.toString() + " && pwd";
+        String commandStr = "cd " + gitLocalPathSettign.getSettingValue() + " && git clone "
+                + project.getGit_url() + " "
+                + folder.toString() + File.separator + "code";
         Boolean command = CommadHelper.exeCmd(BUILD_NAME, commandStr, service, project.getIdProject());
         System.out.println(command);
     }
