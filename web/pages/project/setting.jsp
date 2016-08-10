@@ -34,7 +34,7 @@
     <h2><%=p.getName()%></h2>
     <div class="center-block" style="width: 96%;">
         <a class="waves-effect waves-light btn">Build</a>
-        <a class="waves-effect waves-light btn">History</a>
+        <a class="waves-effect waves-light btn" href="/<%=p.getName()%>/<%=p.getPlatform()%>/history">History</a>
         <a class="waves-effect waves-light btn" href="/<%=p.getName()%>/<%=p.getPlatform()%>/setting">Setting</a>
         <a class="waves-effect waves-light btn">Stop</a>
         <a class="waves-effect waves-light btn">Delete</a>

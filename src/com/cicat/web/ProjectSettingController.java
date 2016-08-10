@@ -3,6 +3,7 @@ package com.cicat.web;
 import com.cicat.entity.Project;
 import com.cicat.entity.Setting;
 import com.cicat.git.GitHelper;
+import com.cicat.service.ICommandRecordService;
 import com.cicat.service.IProjectService;
 import com.cicat.service.ISettingService;
 import com.cicat.service.impl.SettingServiceImpl;
@@ -23,9 +24,12 @@ import javax.annotation.Resource;
 public class ProjectSettingController {
 
     @Resource
+    IProjectService service;
+    @Resource
     ISettingService settingService;
     @Resource
-    IProjectService service;
+    ICommandRecordService commandRecordService;
+
 
     @RequestMapping(value = "/project/setting/create", method = RequestMethod.GET)
     public String showCreateProjectPage(ModelMap model) {
@@ -87,7 +91,7 @@ public class ProjectSettingController {
     public String cloneSourceCode(ModelMap model, @PathVariable String name, @PathVariable String platform) {
         Project project = service.getProject(name, platform);
         Setting setting = settingService.getSetting(CommonString.KEY_PORJECT_SAVE_LOCATION);
-        GitHelper gitHelper = new GitHelper();
+        GitHelper gitHelper = new GitHelper(commandRecordService);
         try {
             gitHelper.cloneProject(project, setting);
             model.addAttribute(project);

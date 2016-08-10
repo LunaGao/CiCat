@@ -2,6 +2,7 @@ package com.cicat.git;
 
 import com.cicat.entity.Project;
 import com.cicat.entity.Setting;
+import com.cicat.service.ICommandRecordService;
 import com.cicat.utils.CommadHelper;
 
 import java.io.File;
@@ -12,6 +13,14 @@ import java.util.List;
  * Created by lunagao on 16/7/29.
  */
 public class GitHelper {
+
+    ICommandRecordService service;
+
+    private static String BUILD_NAME = "Git Clone";
+
+    public GitHelper(ICommandRecordService service) {
+        this.service = service;
+    }
 
     public void cloneProject(Project project, Setting setting) throws Exception {
         String project_save_location = setting.getSettingValue();
@@ -33,8 +42,8 @@ public class GitHelper {
                 throw new Exception("\"Project Location\" path can not be create, please check it again.");
             }
         }
-        String commandStr = "cd /Users/lunagao/CiCat/\npwd\n";
-        Boolean command = CommadHelper.exeCmd(commandStr);
+        String commandStr = "ifconfig";//"cd " + folder.toString() + " && pwd";
+        Boolean command = CommadHelper.exeCmd(BUILD_NAME, commandStr, service, project.getIdProject());
         System.out.println(command);
     }
 
