@@ -4,6 +4,7 @@ import com.cicat.entity.Project;
 import com.cicat.entity.Setting;
 import com.cicat.service.ICommandRecordService;
 import com.cicat.utils.CommadHelper;
+import org.eclipse.jgit.api.Git;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,6 +24,33 @@ public class GitHelper {
     }
 
     public void cloneProject(Project project, Setting projectLocationSetting, Setting gitLocalPathSettign) throws Exception {
+
+
+        File paths = createFolders(project,projectLocationSetting);
+
+        Git git = Git.cloneRepository()
+                .setURI(project.getGit_url())
+                .setDirectory(paths)
+                .call();
+
+
+
+//        String commandStr = "cd " + gitLocalPathSettign.getSettingValue() + " && git clone";/*
+//                + project.getGit_url() + " "
+//                + folder.toString() + File.separator + "code";*/
+//        Boolean command = CommadHelper.exeCmd(
+//                BUILD_NAME,
+//                commandStr,
+//                new String[]{
+//                        project.getGit_url(),
+//                        paths.toString() + File.separator + "code"},
+//                service,
+//                project.getIdProject());
+//        System.out.println(command);
+    }
+
+
+    private File createFolders(Project project, Setting projectLocationSetting) throws Exception {
         String project_save_location = projectLocationSetting.getSettingValue();
         File rootDir = File.listRoots()[0];
         String[] path = project_save_location.split(File.separator);
@@ -42,11 +70,7 @@ public class GitHelper {
                 throw new Exception("\"Project Location\" path can not be create, please check it again.");
             }
         }
-        String commandStr = "cd " + gitLocalPathSettign.getSettingValue() + " && git clone "
-                + project.getGit_url() + " "
-                + folder.toString() + File.separator + "code";
-        Boolean command = CommadHelper.exeCmd(BUILD_NAME, commandStr, service, project.getIdProject());
-        System.out.println(command);
+        return new File(folder, "code");
     }
 
     private File getFolders(File folder, List<String> path, int index) {

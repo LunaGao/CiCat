@@ -12,14 +12,15 @@ import java.util.Date;
  */
 public class CommadHelper {
 
-    public static Boolean exeCmd(String buildName, String commandStr, ICommandRecordService service, int projectId) {
+    public static Boolean exeCmd(String buildName, String commandStr, String[] envp, ICommandRecordService service, int projectId) {
         Process process;
         Command command = new Command();
         command.setBuildName(buildName);
         command.setDeleted(false);
         command.setProjectId(projectId);
         try {
-            process = Runtime.getRuntime().exec(commandStr);
+            process = Runtime.getRuntime().exec(commandStr, envp);
+            process.waitFor();
             command.setCommandStr(commandStr);
             Date date = new Date();
             Timestamp timeStamp = new Timestamp(date.getTime());
@@ -34,20 +35,14 @@ public class CommadHelper {
             outputString = outputString.replace("\t", "<br/>");
             command.setCommandOutput(outputString);
             input.close();
-        } catch (IOException e) {
-            command.setCommandResult(false);
-            service.createCommand(command);
-            e.printStackTrace();
-            System.out.println("error --------------\n" + e.getMessage());
-            return false;
-        }
-        try {
             command.setCommandResult(process.exitValue() == 0);
             service.createCommand(command);
             return command.getCommandResult();
         } catch (Exception ex) {
             command.setCommandResult(false);
             service.createCommand(command);
+            ex.printStackTrace();
+            System.out.println("error --------------\n" + ex.getMessage());
             return false;
         }
     }
