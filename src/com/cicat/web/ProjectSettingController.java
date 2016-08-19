@@ -7,6 +7,7 @@ import com.cicat.service.ICommandRecordService;
 import com.cicat.service.IProjectService;
 import com.cicat.service.ISettingService;
 import com.cicat.service.impl.SettingServiceImpl;
+import com.cicat.utils.CommadHelper;
 import com.cicat.utils.CommonString;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.io.File;
 
 /**
  * Created by lunagao on 16/7/28.
@@ -95,6 +97,36 @@ public class ProjectSettingController {
         GitHelper gitHelper = new GitHelper(commandRecordService);
         try {
             gitHelper.cloneProject(project, projectLocationSetting, gitLocalPathSettign);
+            model.addAttribute(project);
+            return "redirect:setting";
+        } catch (Exception ex) {
+            model.addAttribute(project);
+            model.addAttribute("error", ex.getMessage());
+            return "/project/setting";
+        }
+    }
+
+    @RequestMapping(value = "/{name}/{platform}/testBuild", method = RequestMethod.GET)
+    public String testBuild(ModelMap model, @PathVariable String name, @PathVariable String platform) {
+        Project project = service.getProject(name, platform);
+        Setting projectLocationSetting = settingService.getSetting(CommonString.KEY_PORJECT_SAVE_LOCATION);
+        try {
+            String commandStr =// "cd " + projectLocationSetting.getSettingValue()
+                    projectLocationSetting.getSettingValue() // test
+                    + project.getPlatform()
+                    + File.separator + project.getName()
+                    + File.separator + "code";
+//                    + " && gradle build";
+            System.out.println(commandStr);
+            Boolean command = CommadHelper.exeCmd(
+                    "gradle build",
+                    commandStr, // dir
+//                    "/Users/lunagao/Android/gradle-2.12/bin/gradle build",
+                    "gradle",
+                    new String[] { "gradle", "build" },
+                    commandRecordService,
+                    project.getIdProject());
+            System.out.println(command);
             model.addAttribute(project);
             return "redirect:setting";
         } catch (Exception ex) {

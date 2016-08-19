@@ -33,8 +33,6 @@ public class GitHelper {
                 .setDirectory(paths)
                 .call();
 
-
-
 //        String commandStr = "cd " + gitLocalPathSettign.getSettingValue() + " && git clone";/*
 //                + project.getGit_url() + " "
 //                + folder.toString() + File.separator + "code";*/

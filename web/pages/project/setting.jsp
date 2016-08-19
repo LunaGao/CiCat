@@ -92,7 +92,9 @@
         </li>
         <li>
             <div class="collapsible-header">Build Setting</div>
-            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+            <div class="collapsible-body">
+                <a class="waves-effect waves-light btn" href="/<%=p.getName()%>/<%=p.getPlatform()%>/testBuild">Test Build</a>
+            </div>
         </li>
         <li>
             <div class="collapsible-header">Execution Time</div>
