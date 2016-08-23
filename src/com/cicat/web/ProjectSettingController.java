@@ -119,11 +119,11 @@ public class ProjectSettingController {
 //                    + " && gradle build";
             System.out.println(commandStr);
             Boolean command = CommadHelper.exeCmd(
-                    "gradle build",
+                    "xcode build",
                     commandStr, // dir
 //                    "/Users/lunagao/Android/gradle-2.12/bin/gradle build",
-                    "gradle",
-                    new String[] { "gradle", "build" },
+                    "xcode",
+                    new String[] { "xcodebuild", "-sdk" ,"iphoneos9.3" },//"./run" }, //"gradle", "build" },
                     commandRecordService,
                     project.getIdProject());
             System.out.println(command);
